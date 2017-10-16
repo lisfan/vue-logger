@@ -1,0 +1,24 @@
+{
+  "name": "vue-logger",
+  "version": "1.0.0",
+  "description": "vue业务用日志打印器",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lisfan/vue-logger.git"
+  },
+  "keywords": [
+    "vue-logger",
+    "log",
+    "logger"
+  ],
+  "author": "lisfan <goolisfan@gmail.com> (https://www.npmjs.com/~lisfan)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lisfan/vue-logger/issues"
+  },
+  "homepage": "https://github.com/lisfan/vue-logger#readme"
+}
