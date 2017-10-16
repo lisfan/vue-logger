@@ -1,19 +1,48 @@
-# Build and Release Folders
-bin/
-bin-debug/
-bin-release/
-[Oo]bj/ # FlashDevelop obj
-[Bb]in/ # FlashDevelop bin
+# project
+# .project
+upyun.config.js
+server.config.js
 
-# Other files and folders
-.settings/
+# npm
+node_modules/
+npm-debug.log
+# package-lock.json
 
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
+# project ignores
+# !.gitkeep
+# *__temp
+# /docs
+# /examples_old
+# /bin
+# /coverage
+# /lib
+# /dist
 
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+# publish
+# dist/
+# public/
+# build/
+# zip
+
+# temp files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# vim swap files
+*.sw*
+
+# emacs temp files
+*~
+\#*#
+
+# sublime text files
+*.sublime*
+*.*~*.TMP
+
+# jetBrains IDE ignores
+.idea
+
+
+# visual studio code ignores
+.vscode
