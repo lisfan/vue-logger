@@ -1,7 +1,7 @@
 {
   "name": "@~lisfan/vue-logger",
   "version": "2.0.0-rc.0",
-  "description": "vue日志打印插件：输出内容的同时，输出调用打印方法所在的组件名和路由名称",
+  "description": "vue日志打印插件：输出内容的同时，输出调用打印方法所在的组件名称(具体到子组件)和路由名称",
   "main": "src/index.js",
   "scripts": {
     "pub-pre": "git pull && npm update && npm version prerelease && git add . && git commit -m 'updata: update version' && git push",

@@ -59,8 +59,8 @@ const _actions = {
 /**
  * @classdesc
  *
- * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的路由名乐和组件名称
- * 该文档只展示了覆盖的四个实例方法（`log`、`warn`、`error`、`trace`），且仅这四个方法支持打印路由名称和组件名称，
+ * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的组件名称(具体到子组件)和路由名称
+ * 该文档只展示了覆盖的四个实例方法（`log`、`warn`、`error`、`trace`），且仅这四个方法支持打印输出，
  * 其他方法功能与Logger实例方法一致，API请参考[Logger文档]{@link https://lisfan.github.io/logger/}
  *
  * @class
