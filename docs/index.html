@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="VueLogger.html">VueLogger</a><ul class='methods'><li data-type='method'><a href="VueLogger.html#log">log</a></li><li data-type='method'><a href="VueLogger.html#warn">warn</a></li><li data-type='method'><a href="VueLogger.html#error">error</a></li><li data-type='method'><a href="VueLogger.html#trace">trace</a></li></ul></li></ul><h3>Externals</h3><ul><li><a href="external-Logger.html">Logger</a></li></ul>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1 id="logger-">logger 日志打印器</h1>
+<p><a href="https://lisfan.github.io/logger/">API documentation</a></p>
+<h2 id="feature-">Feature 特性</h2>
+<ul>
+<li>解决提交时因eslint提示console的语句无法通过问题</li>
+<li>仅在开发环境打印日志，生产环境不打印日志</li>
+</ul>
+<h2 id="detail-">Detail 详情</h2>
+<ul>
+<li>在console上包装了一层，支持console的所有的方法（包含部分非标准APi，但不包含未被废弃的API），部分API做了变化和新增加，未提及的保原效果不变，只是在原api上封装了一层进行代理运行，API使用方法可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/Console/group">console API</a><ul>
+<li>新增的isActivated、color、enable、disable方法</li>
+<li>调整error方法的作用：打印时会抛出错误，阻止脚本执行</li>
+<li>调整table方法的作用：如果数据非array或object类型，则使用this.log打印</li>
+</ul>
+</li>
+<li>若需要在生产环境下调式日志，可以更改或设置LS离线存储的值<ul>
+<li>localStorage设置<code>IS_DEV</code>为true</li>
+<li>localStorage设置<code>LOGGER_RULES</code>配置命名空间规则</li>
+</ul>
+</li>
+<li>支持配置整个命名空间是否输出日志</li>
+<li>支持配置命名空间下某个实例方法是否输出日志</li>
+</ul>
+<h2 id="install-">Install 安装</h2>
+<pre class="prettyprint source lang-bash"><code>npm install -S @~lisfan/logger</code></pre><h2 id="usage-">Usage 起步</h2>
+<pre class="prettyprint source lang-js"><code>import Logger from '@~lisfan/logger'
+
+// 配置规则
+Logger.configRules({
+   request:true, // 该命名空间支持打印输出
+   request.error:false, // 该命名空间下的error方法不支持打印输出
+   response:false // 该命名空间不支持打印输出
+})
+
+const logger = new Logger() // 默认打印器，命名空间为`logger`
+const loggerRequest = new Logger('request') // 创建命名空间为`request`的打印器
+const loggerResponse = new Logger('response')
+
+// 创建打印器，但关闭调试功能
+const loggerDebug = new Logger({
+   name: 'debug',
+   debug: false
+})
+
+loggerRequest.log('请求url')    =>    [request]: 请求url
+loggerRequest.error('请求url')    =>    // 无内容打印
+loggerResponse.error('响应数据')    =>    // 无内容打印
+loggerDebug.log('请求url')    =>     // 无内容打印</code></pre><ul>
+<li>模块性质：vue相关<ul>
+<li>作用范围：pc、mobile</li>
+<li>依赖模块：utils/logger</li>
+<li>来源项目：扫码点单H5</li>
+<li>初始发布日期：2017-05-24 20:00</li>
+<li>最后更新日期：2017-05-25 20:00<br>*</li>
+<li><h2 id="-">特性</h2>
+</li>
+<li><ul>
+<li>该工具的作用与utils/logger在使用场景不同，该工具主要在vue相关的工具中使用</li>
+</ul>
+</li>
+<li><ul>
+<li>第一个参数如果传入的是vue实例，则会打印出当前实例的组件名称(具体到子组件)和路由name</li>
+</ul>
+</li>
+<li><ul>
+<li>未传入vue实例时，则常规打印</li>
+</ul>
+</li>
+<li><ul>
+<li>[兼容的]某些情况下创建的vue实例未绑定$route属性时的路由名称取值 ，所以在vue-router实例创建时在全局对象上暴露了$router这个实例</li>
+</ul>
+</li>
+<li><h2 id="todo">Todo</h2>
+*</li>
+<li><h2 id="changelog">Changelog</h2>
+</li>
+<li><h3 id="2017-05-23">2017.05.23</h3>
+</li>
+<li><ul>
+<li>更改获取组件名的方式，保证必定能打印出组件名<br>*</li>
+</ul>
+</li>
+<li><h3 id="2017-05-28">2017.05.28</h3>
+</li>
+<li><ul>
+<li>某些情况下创建的vue实例未绑定$route属性时的路由名称取值<br>*</li>
+</ul>
+</li>
+<li><h3 id="2017-05-31">2017.05.31</h3>
+</li>
+<li><ul>
+<li>[fix] 修复this不存在，但有打印内容时不打印的问题<br>*</li>
+</ul>
+</li>
+<li><h3 id="2017-06-19">2017-06-19</h3>
+</li>
+<li><ul>
+<li>[refactor] 优化logger模块获取继续方法的方式<br>*</li>
+</ul>
+</li>
+<li><h3 id="2017-08-29">2017-08-29</h3>
+</li>
+<li><ul>
+<li>[fix] 日志打印器调用的组件名不从取commentTag字段<br>*</li>
+</ul>
+</li>
+<li><h2 id="usage">Usage</h2>
+</li>
+<li>``` js<br>*</li>
+<li>./start.vue  当前路由路径对应的name属性值为order<br>*</li>
+<li>import VueLogger from 'plugins/vue-logger'<br>*</li>
+<li>VueLogger.config({</li>
+<li>request:true,</li>
+<li>response:false // 该命名空间禁止打印</li>
+<li>})<br>*</li>
+<li>const loggerRequest = new VueLogger('request')</li>
+<li>const loggerResponse = new VueLogger('response')<br>*</li>
+<li>new Vue({</li>
+<li>created() {</li>
+<li>loggerRequest.log(this,'请求url')    =&gt;    [request]: 请求url @start #order</li>
+<li>loggerResponse.error(this,'响应数据')    =&gt;    // 无内容打印</li>
+<li>}</li>
+<li>})</li>
+<li>```</li>
+</ul>
+</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 31 2017 15:34:18 GMT+0800 (CST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
