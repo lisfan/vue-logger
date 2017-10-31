@@ -1,7 +1,7 @@
 {
   "name": "@~lisfan/vue-logger",
-  "version": "1.1.0-alpha.0",
-  "description": "vue日志打印插件：打印内容的同时，显示打印方法调用所在的路由和组件名",
+  "version": "2.0.0-rc.0",
+  "description": "vue日志打印插件：输出内容的同时，输出调用打印方法所在的组件名和路由名称",
   "main": "src/index.js",
   "scripts": {
     "pub-pre": "git pull && npm update && npm version prerelease && git add . && git commit -m 'updata: update version' && git push",
@@ -19,11 +19,10 @@
     "url": "git+https://github.com/lisfan/vue-logger.git"
   },
   "keywords": [
-    "upyun",
-    "image-clipper",
     "vue",
-    "plugin",
-    "responsive"
+    "log",
+    "logger",
+    "vue-logger"
   ],
   "author": "lisfan <goolisfan@gmail.com> (https://www.npmjs.com/~lisfan)",
   "license": "MIT",
@@ -32,13 +31,10 @@
   },
   "homepage": "https://github.com/lisfan/vue-logger#readme",
   "dependencies": {
-    "@~lisfan/logger": "file:../logger"
+    "@~lisfan/logger": "~1.3.0-rc.0"
   },
   "devDependencies": {
     "docdash": "~0.4.0",
     "jsdoc": "~3.5.5"
-  },
-  "peerDependencies": {
-    "vue": "~2.5.2"
   }
 }
