@@ -7,7 +7,7 @@
  */
 
 /**
- * VueLogger继承自Logger模块
+ * VueLogger继承自Logger模块，API请参考[Logger文档](https://lisfan.github.io/logger/)
  *
  * @external Logger
  * @see {@link https://lisfan.github.io/logger/|Logger}
@@ -58,26 +58,81 @@ const _actions = {
 
 /**
  * @classdesc
- * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}.
-
- * - 打印内容的同时，也显示调用打印方法所在的路由名和组件名，只支持`log`、`warn`、`error`、`trace`四个方法，其他方法不支持打印路由名和组件名
+ *
+ * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的路由名乐和组件名称
+ * 该文档只展示了覆盖的四个实例方法（`log`、`warn`、`error`、`trace`），且仅这四个方法支持打印路由名称和组件名称，
+ * 其他方法功能与Logger实例方法一致，API请参考[Logger文档]{@link https://lisfan.github.io/logger/}
  *
  * @class
  * @extends external:Logger
  */
 class VueLogger extends Logger {
   /**
+   * 打印器命名空间规则配置项
+   * - 可以配置整个命名空间是否输出日志
+   * - 也可以配置命名空间下某个实例方法是否输出日志
+   *
+   * [注]：内部始终读取Logger.rules
+   *
+   * @since 2.0.0
+   * @memberOf VueLogger
+   * @static
+   * @getter
+   * @readonly
+   * @property {object} rules - 打印器命名空间规则配置集合
+   */
+  static get rules() {
+    return Logger.rules
+  }
+
+  /**
+   * 更改命名空间规则配置项
+   * [注]从`localStorage`的`LOGGER_RULES`键中读取规则配置优先级最高，始终会覆盖其他规则
+   *
+   * [注]：内部始终调用Logger.configRules
+   * @since 2.0.0
+   * @static
+   * @param {object} rules - 配置参数
+   * @param {string} [rules.name] - 日志器命名空间
+   * @param {boolean} [rules.debug] - 调试模式是否开启
+   */
+  static configRules(rules) {
+    Logger.configRules(rules)
+  }
+
+  /**
    * 默认配置选项
+   *
+   * [注]：内部始终读取Logger.options
    *
    * @since 2.0.0
    * @static
-   * @override
+   * @getter
+   * @readonly
    * @memberOf VueLogger
-   * @property {number} maxAge=-1 - 数据可存活时间，默认永久缓存
+   * @property {string} name - 日志器命名空间
+   * @property {boolean} debug - 调试模式是否开启
    */
-  static options = {
-    name: 'vue-logger',
-    debug: true
+  static get options() {
+    return {
+      ...Logger.options,
+      name: Logger.options.name === 'logger' ? 'vue-logger' : Logger.options.name
+    }
+  }
+
+  /**
+   * 更新默认配置选项
+   *
+   * [注]：内部始终调用Logger.config
+   *
+   * @since 2.0.0
+   * @static
+   * @param {object} options - 配置参数
+   * @param {string} [options.name] - 日志器命名空间
+   * @param {boolean} [options.debug] - 调试模式是否开启
+   */
+  static config(options) {
+    Logger.config(options)
   }
 
   /**
