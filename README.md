@@ -20,6 +20,7 @@ npm install -S @~lisfan/vue-logger
 
 ## Usage 起步
 
+```js
 // 使用场景：当前是一个自定义的vue指令，在start.vue组件调用该指令，且当前路由路径对应的name属性值为order
 // ./vue-directive.js
 
