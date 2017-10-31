@@ -5,45 +5,46 @@
  *
  * @version 2.0.0
  */
-
 import Logger from '@~lisfan/logger'
 
 // 私有方法
 const _actions = {
-  xx() {
-    this[logType] = (vm, ...args) => {
-      // 不存在vue实例时，且存在打印内容时，进行打印
-      if (!vm && args.length > 0) {
-        return logger[logType].call(logger, ...args
-        )
-      }
-
-      // 不存在vue实例时，且可打印内容不存在，则不打印
-      if (!vm && args.length === 0) {
-        return false
-      }
-
-      if (vm._isVue !== true) {
-        return logger[logType].call(logger, vm, ...args
-        )
-      }
-
-      // 获取当前组件名称
-      // vue组件实例会有两种存在方式，1.是游离独立的（直接通过new Vue创建的），2.一种是作为某个vue实例的子组件实例创在的
-      // 1. vm.$options.__file
-      // 2. vm.$options._parentVnode.componentOptions.Ctor.options.__file
-      const filename = vm.$options.__file || (vm.$options._parentVnode && vm.$options._parentVnode.componentOptions.Ctor.options.__file) || 'unknow'
-
-      const index = filename.lastIndexOf('/')
-      const componentName = filename.slice(index + 1, -4)
-
-      // 获取当前路由名称
-      // vue组件实例会有两种存在方式，1.是游离独立的（直接通过new Vue创建的），2.一种是作为某个vue实例的子组件实例创在的
-      // 1. global.$router && global.$router.currentRoute.name
-      // 1. vm.$route && vm.$route.name
-      const routeName = (vm.$route && vm.$route.name) || (global.$router && global.$router.currentRoute.name) || 'unknow'
-      logger[logType].call(logger, ...args, '@' + componentName.toString(), '#' + routeName.toString())
+  /**
+   * 代理运行打印方法
+   * @param {function} superMethod - 要调用Logger的方法
+   * @param {VueLogger} self - VueLogger 实例
+   * @param {Vue} vm - vue 实例
+   * @param {...*} args - 其他参数
+   * @returns {VueLogger}
+   */
+  proxyRun(superMethod, self, vm, ...args) {
+    // 若不存在vue实例时，则直接打印内容
+    if (vm._isVue !== true) {
+      return superMethod.call(self, vm, ...args)
     }
+
+    // 获取当前组件名称
+    // vue组件实例[文件名]会有两种存在方式
+    // 1.一种是游离独立的（通过new Vue创建的独立片断）：取vm.$options.__file
+    // 2.另一种是作为某个vue实例的子组件实例存在：取vm.$options._parentVnode.componentOptions.Ctor.options.__file
+    // 2.
+    let componentName = 'unknow'
+
+    try {
+      let filename = vm.$options.__file || (vm.$options._parentVnode && vm.$options._parentVnode.componentOptions.Ctor.options.__file)
+      componentName = filename.slice(filename.lastIndexOf('/') + 1, -4)
+    } catch (e) {
+      // 错误捕获
+    }
+
+    // 获取路由名称
+    // vue组件实例[路由名]会有两种存在方式
+    // 1. 一种是游离独立的（通过new Vue创建的独立片断），游离在外的无法
+    // 2. 另一种是作为某个vue实例的子组件实例存在：vm.$route && vm.$route.name
+    const routeName = (vm.$route && vm.$route.name) || 'unknow'
+    superMethod.call(self, ...args, '@' + componentName.toString(), '#' + routeName.toString())
+
+    return self
   }
 }
 
@@ -56,7 +57,7 @@ class VueLogger extends Logger {
   /**
    * 默认配置选项
    *
-   * @since 1.0.0
+   * @since 2.0.0
    * @static
    * @override
    * @memberOf VueLogger
@@ -74,24 +75,59 @@ class VueLogger extends Logger {
    * @param {string} options.namespace - 命名空间
    */
   constructor(options) {
-    console.log('222')
     super(options)
   }
 
   /**
-   * 覆盖log方法的调用
+   * 针对vue实例的log打印
+   *
+   * @since 2.0.0
    * @override
+   * @param {Vue} vm - vue实例
+   * @param {...*} args - 其他参数
+   * @return {VueLogger}
    */
-  log() {
-    console.log(1111)
+  log(...args) {
+    return _actions.proxyRun(super.log, this, ...args)
   }
 
-  warn() {
-    console.log(2222)
+  /**
+   * 针对vue实例的warn打印
+   *
+   * @since 2.0.0
+   * @override
+   * @param {Vue} vm - vue实例
+   * @param {...*} args - 其他参数
+   * @return {VueLogger}
+   */
+  warn(...args) {
+    return _actions.proxyRun(super.warn, this, ...args)
   }
 
-  error() {
-    console.log(3333)
+  /**
+   * 针对vue实例的error打印
+   *
+   * @since 2.0.0
+   * @override
+   * @param {Vue} vm - vue实例
+   * @param {...*} args - 其他参数
+   * @return {VueLogger}
+   */
+  error(...args) {
+    return _actions.proxyRun(super.error, this, ...args)
+  }
+
+  /**
+   * 针对vue实例的trace打印
+   *
+   * @since 2.0.0
+   * @override
+   * @param {Vue} vm - vue实例
+   * @param {...*} args - 其他参数
+   * @return {VueLogger}
+   */
+  trace(...args) {
+    return _actions.proxyRun(super.trace, this, ...args)
   }
 }
 
