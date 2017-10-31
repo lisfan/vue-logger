@@ -22,7 +22,10 @@
     "vue",
     "log",
     "logger",
-    "vue-logger"
+    "vue-logger",
+    "debug",
+    "console",
+    "output"
   ],
   "author": "lisfan <goolisfan@gmail.com> (https://www.npmjs.com/~lisfan)",
   "license": "MIT",
