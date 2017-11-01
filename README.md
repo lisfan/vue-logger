@@ -1,4 +1,6 @@
-# vue-logger VUE日志打印器
+# vue-logger
+
+## vue 日志打印器
 
 [API documentation](https://lisfan.github.io/vue-logger/)
 
@@ -26,12 +28,12 @@ npm install -S @~lisfan/vue-logger
 
 import VueLogger from '@~lisfan/vue-logger'
 
-const vueLogger = new VueLogger('image-load')
+const vueLogger = new VueLogger('image-loader')
 
-Vue.directive('image-load', {
+Vue.directive('image-loader', {
     bind ($el, binding, vnode) {
       // vnode.context 是一个vue实例
-      vueLogger.log(vnode.context, '指令已绑定') // [image-load]: 指令已绑定 @start #order
+      vueLogger.log(vnode.context, '指令已绑定') // [image-loader]: 指令已绑定 @start #order
     }
   })
 ```
