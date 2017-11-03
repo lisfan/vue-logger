@@ -35,11 +35,16 @@ const _actions = {
     // 1.一种是游离独立的（通过new Vue创建的独立片断）：取vm.$options.__file
     // 2.另一种是作为某个vue实例的子组件实例存在：取vm.$options._parentVnode.componentOptions.Ctor.options.__file
     // 2.
-    let componentName = 'unknow'
+    let filename = 'unknow'
 
     try {
-      let filename = vm.$options.__file || (vm.$options._parentVnode && vm.$options._parentVnode.componentOptions.Ctor.options.__file)
-      componentName = filename.slice(filename.lastIndexOf('/') + 1, -4)
+      if (vm.$options.__file) {
+        filename = vm.$options.__file
+      } else if (vm.$options.$vnode) {
+        filename = vm.$options.$vnode.componentOptions.Ctor.options.__file
+      } else if (vm.$options._parentVnode) {
+        filename = vm.$options._parentVnode.componentOptions.Ctor.options.__file
+      }
     } catch (e) {
       // 错误捕获
     }
@@ -49,7 +54,7 @@ const _actions = {
     // 1. 一种是游离独立的（通过new Vue创建的独立片断），游离在外的无法
     // 2. 另一种是作为某个vue实例的子组件实例存在：vm.$route && vm.$route.name
     const routeName = (vm.$route && vm.$route.name) || 'unknow'
-    superMethod.call(self, ...args, '@' + componentName.toString(), '#' + routeName.toString())
+    superMethod.call(self, ...args, '@' + filename.toString(), '#' + routeName.toString())
 
     return self
   }
@@ -94,9 +99,12 @@ class VueLogger extends Logger {
    * @param {object} rules - 配置参数
    * @param {string} [rules.name] - 日志器命名空间
    * @param {boolean} [rules.debug] - 调试模式是否开启
+   * @returns {VueLogger}
    */
   static configRules(rules) {
     Logger.configRules(rules)
+
+    return this
   }
 
   /**
@@ -129,9 +137,12 @@ class VueLogger extends Logger {
    * @param {object} options - 配置参数
    * @param {string} [options.name] - 日志器命名空间
    * @param {boolean} [options.debug] - 调试模式是否开启
+   * @returns {VueLogger}
    */
   static config(options) {
     Logger.config(options)
+
+    return this
   }
 
   /**
