@@ -1,9 +1,8 @@
 /**
- * vue日志打印器
- *
- * 基于'@~lisfan/logger'模块，但只包装了3个方法:log,warn,
- *
+ * @file vue日志打印器
+ * @author lisfan <goolisfan@gmail.com>
  * @version 2.0.0
+ * @licence MIT
  */
 
 /**
