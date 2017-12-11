@@ -62,7 +62,7 @@ const _actions = {
    * @param {VueLogger} self - VueLogger 实例
    * @param {Vue} vm - vue 实例
    * @param {...*} args - 其他参数
-   * @returns {VueLogger}
+   * @return {VueLogger}
    */
   proxyRun(superMethod, self, vm, ...args) {
     // 若不存在vue实例时，则直接打印内容
