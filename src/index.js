@@ -22,7 +22,7 @@ const _actions = {
    * @param {VueLogger} self - VueLogger 实例
    * @param {Vue} vm - vue 实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   proxyRun(superMethod, self, vm, ...args) {
     // 若不存在vue实例时，则直接打印内容
@@ -99,7 +99,7 @@ class VueLogger extends Logger {
    * @param {object} rules - 配置参数
    * @param {string} [rules.name] - 日志器命名空间
    * @param {boolean} [rules.debug] - 调试模式是否开启
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   static configRules(rules) {
     Logger.configRules(rules)
@@ -137,7 +137,7 @@ class VueLogger extends Logger {
    * @param {object} options - 配置参数
    * @param {string} [options.name] - 日志器命名空间
    * @param {boolean} [options.debug] - 调试模式是否开启
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   static config(options) {
     Logger.config(options)
@@ -162,7 +162,7 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   log(...args) {
     return _actions.proxyRun(super.log, this, ...args)
@@ -175,7 +175,7 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   warn(...args) {
     return _actions.proxyRun(super.warn, this, ...args)
@@ -188,7 +188,7 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   error(...args) {
     return _actions.proxyRun(super.error, this, ...args)
@@ -201,7 +201,7 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   trace(...args) {
     return _actions.proxyRun(super.trace, this, ...args)
