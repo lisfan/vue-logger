@@ -18,9 +18,11 @@ import Logger from '@~lisfan/logger'
 const _actions = {
   /**
    * 代理运行打印方法
+   *
    * @param {function} superMethod - 要调用Logger的方法
    * @param {VueLogger} self - VueLogger 实例
    * @param {...*} args - 其他参数
+   *
    * @returns {VueLogger}
    */
   proxyRun(self, superMethod, ...args) {
@@ -59,6 +61,8 @@ const _actions = {
 }
 
 /**
+ * @extends external:Logger
+ *
  * @classdesc
  *
  * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的组件文件名称(具体到子组件)和路由名称
@@ -66,7 +70,6 @@ const _actions = {
  * 其他方法功能与Logger实例方法一致，API请参考[Logger文档]{@link https://lisfan.github.io/logger/}
  *
  * @class
- * @extends external:Logger
  */
 class VueLogger extends Logger {
   /**
@@ -77,10 +80,11 @@ class VueLogger extends Logger {
    * [注]：内部始终读取Logger.rules
    *
    * @since 2.0.0
-   * @memberOf VueLogger
+   *
    * @static
    * @getter
-   * @readonly
+   * @memberOf VueLogger
+   *
    * @property {object} rules - 打印器命名空间规则配置集合
    */
   static get rules() {
@@ -92,9 +96,13 @@ class VueLogger extends Logger {
    * [注]从`localStorage`的`LOGGER_RULES`键中读取规则配置优先级最高，始终会覆盖其他规则
    *
    * [注]：内部始终调用Logger.configRules
+   *
    * @since 2.0.0
+   *
    * @static
+   *
    * @param {object} rules - 打印器命名空间规则配置集合
+   *
    * @returns {VueLogger}
    */
   static configRules(rules) {
@@ -109,10 +117,11 @@ class VueLogger extends Logger {
    * [注]：内部始终读取Logger.options
    *
    * @since 2.0.0
+   *
    * @static
    * @getter
-   * @readonly
    * @memberOf VueLogger
+   *
    * @property {string} name='vue-logger' - 日志器命名空间
    * @property {boolean} debug=true - 调试模式是否开启
    */
@@ -127,10 +136,13 @@ class VueLogger extends Logger {
    * [注]：内部始终调用Logger.config
    *
    * @since 2.0.0
+   *
    * @static
+   *
    * @param {object} options - 配置参数
    * @param {string} [options.name='vue-logger'] - 日志器命名空间
    * @param {boolean} [options.debug=true] - 调试模式是否开启
+   *
    * @returns {VueLogger}
    */
   static config(options) {
@@ -162,8 +174,9 @@ class VueLogger extends Logger {
    * 获取实例配置的vue实例
    *
    * @since 2.1.0
+   *
    * @getter
-   * @readonly
+   *
    * @returns {Vue}
    */
   get $vm() {
@@ -174,9 +187,11 @@ class VueLogger extends Logger {
    * 针对vue实例的log打印
    *
    * @since 2.0.0
+   *
    * @override
-   * @param {Vue} vm - vue实例
+   *
    * @param {...*} args - 其他参数
+   *
    * @returns {VueLogger}
    */
   log(...args) {
@@ -187,9 +202,11 @@ class VueLogger extends Logger {
    * 针对vue实例的warn打印
    *
    * @since 2.0.0
+   *
    * @override
-   * @param {Vue} vm - vue实例
+   *
    * @param {...*} args - 其他参数
+   *
    * @returns {VueLogger}
    */
   warn(...args) {
@@ -200,9 +217,11 @@ class VueLogger extends Logger {
    * 针对vue实例的error打印
    *
    * @since 2.0.0
+   *
    * @override
-   * @param {Vue} vm - vue实例
+   *
    * @param {...*} args - 其他参数
+   *
    * @returns {VueLogger}
    */
   error(...args) {
@@ -213,9 +232,11 @@ class VueLogger extends Logger {
    * 针对vue实例的trace打印
    *
    * @since 2.0.0
+   *
    * @override
-   * @param {Vue} vm - vue实例
+   *
    * @param {...*} args - 其他参数
+   *
    * @returns {VueLogger}
    */
   trace(...args) {
