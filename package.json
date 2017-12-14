@@ -1,8 +1,8 @@
 {
   "name": "@~lisfan/vue-logger",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "vue日志打印插件：输出内容的同时，输出调用打印方法所在的组件名称(具体到子组件)和路由名称",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "pub-pre": "git pull && npm version prerelease",
     "pub-n": "npm run pub-pre && npm publish --tag nightly && npm run pub-post",
