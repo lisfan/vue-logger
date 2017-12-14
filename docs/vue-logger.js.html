@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>index.js - Documentation</title>
+    <title>vue-logger.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -27,7 +27,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">index.js</h1>
+    <h1 class="page-title">vue-logger.js</h1>
     
 
     
@@ -38,11 +38,10 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * vue日志打印器
- *
- * 基于'@~lisfan/logger'模块，但只包装了3个方法:log,warn,
- *
- * @version 2.0.0
+ * @file vue日志打印器
+ * @author lisfan &lt;goolisfan@gmail.com>
+ * @version 2.1.0
+ * @licence MIT
  */
 
 /**
@@ -60,26 +59,29 @@ const _actions = {
    * 代理运行打印方法
    * @param {function} superMethod - 要调用Logger的方法
    * @param {VueLogger} self - VueLogger 实例
-   * @param {Vue} vm - vue 实例
    * @param {...*} args - 其他参数
    * @returns {VueLogger}
    */
-  proxyRun(superMethod, self, vm, ...args) {
+  proxyRun(self, superMethod, ...args) {
     // 若不存在vue实例时，则直接打印内容
-    if (vm._isVue !== true) {
-      return superMethod.call(self, vm, ...args)
+    if (!self.$vm || self.$vm._isVue !== true) {
+      return superMethod.call(self, ...args)
     }
 
-    // 获取当前组件名称
+    // 获取当的组件文件名称
     // vue组件实例[文件名]会有两种存在方式
-    // 1.一种是游离独立的（通过new Vue创建的独立片断）：取vm.$options.__file
-    // 2.另一种是作为某个vue实例的子组件实例存在：取vm.$options._parentVnode.componentOptions.Ctor.options.__file
-    // 2.
-    let componentName = 'unknow'
+    // 1.一种是游离独立的（通过new Vue创建的独立片断）：取self.$vm.$options.__file
+    // 2.另一种是作为某个vue实例的子组件实例存在：取self.$vm.$options._parentVnode.componentOptions.Ctor.options.__file
+    let filename = 'unknow'
 
     try {
-      let filename = vm.$options.__file || (vm.$options._parentVnode &amp;&amp; vm.$options._parentVnode.componentOptions.Ctor.options.__file)
-      componentName = filename.slice(filename.lastIndexOf('/') + 1, -4)
+      if (self.$vm.$options.__file) {
+        filename = self.$vm.$options.__file
+      } else if (self.$vm.$options.$vnode) {
+        filename = self.$vm.$options.$vnode.componentOptions.Ctor.options.__file
+      } else if (self.$vm.$options._parentVnode) {
+        filename = self.$vm.$options._parentVnode.componentOptions.Ctor.options.__file
+      }
     } catch (e) {
       // 错误捕获
     }
@@ -87,9 +89,9 @@ const _actions = {
     // 获取路由名称
     // vue组件实例[路由名]会有两种存在方式
     // 1. 一种是游离独立的（通过new Vue创建的独立片断），游离在外的无法
-    // 2. 另一种是作为某个vue实例的子组件实例存在：vm.$route &amp;&amp; vm.$route.name
-    const routeName = (vm.$route &amp;&amp; vm.$route.name) || 'unknow'
-    superMethod.call(self, ...args, '@' + componentName.toString(), '#' + routeName.toString())
+    // 2. 另一种是作为某个vue实例的子组件实例存在：self.$vm.$route &amp;&amp; self.$vm.$route.name
+    const routeName = (self.$vm.$route &amp;&amp; self.$vm.$route.name) || 'unknow'
+    superMethod.call(self, ...args, '@' + filename.toString(), '#' + routeName.toString())
 
     return self
   }
@@ -98,7 +100,7 @@ const _actions = {
 /**
  * @classdesc
  *
- * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的组件名称(具体到子组件)和路由名称
+ * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的组件文件名称(具体到子组件)和路由名称
  * 该文档只展示了覆盖的四个实例方法（`log`、`warn`、`error`、`trace`），且仅这四个方法支持打印输出，
  * 其他方法功能与Logger实例方法一致，API请参考[Logger文档]{@link https://lisfan.github.io/logger/}
  *
@@ -131,12 +133,13 @@ class VueLogger extends Logger {
    * [注]：内部始终调用Logger.configRules
    * @since 2.0.0
    * @static
-   * @param {object} rules - 配置参数
-   * @param {string} [rules.name] - 日志器命名空间
-   * @param {boolean} [rules.debug] - 调试模式是否开启
+   * @param {object} rules - 打印器命名空间规则配置集合
+   * @returns {VueLogger}
    */
   static configRules(rules) {
     Logger.configRules(rules)
+
+    return this
   }
 
   /**
@@ -149,14 +152,12 @@ class VueLogger extends Logger {
    * @getter
    * @readonly
    * @memberOf VueLogger
-   * @property {string} name - 日志器命名空间
-   * @property {boolean} debug - 调试模式是否开启
+   * @property {string} name='vue-logger' - 日志器命名空间
+   * @property {boolean} debug=true - 调试模式是否开启
    */
-  static get options() {
-    return {
-      ...Logger.options,
-      name: Logger.options.name === 'logger' ? 'vue-logger' : Logger.options.name
-    }
+  static options = {
+    name: 'vue-logger',
+    debug: true,
   }
 
   /**
@@ -167,21 +168,45 @@ class VueLogger extends Logger {
    * @since 2.0.0
    * @static
    * @param {object} options - 配置参数
-   * @param {string} [options.name] - 日志器命名空间
-   * @param {boolean} [options.debug] - 调试模式是否开启
+   * @param {string} [options.name='vue-logger'] - 日志器命名空间
+   * @param {boolean} [options.debug=true] - 调试模式是否开启
+   * @returns {VueLogger}
    */
   static config(options) {
-    Logger.config(options)
+    // 以内置配置为优先
+    VueLogger.options = {
+      ...VueLogger.options,
+      ...options
+    }
+
+    return this
   }
 
   /**
    * 构造函数
    *
    * @param {string} options - 配置选项
-   * @param {string} options.namespace - 命名空间
+   * @param {string} [options.name='vue-logger'] - 日志器命名空间
+   * @param {boolean} [options.debug=true] - 调试模式是否开启
+   * @param {Vue} [options.vm] - vue实例
    */
   constructor(options) {
-    super(options)
+    super({
+      ...VueLogger.options,
+      ...options
+    })
+  }
+
+  /**
+   * 获取实例配置的vue实例
+   *
+   * @since 2.1.0
+   * @getter
+   * @readonly
+   * @returns {Vue}
+   */
+  get $vm() {
+    return this.$options.vm
   }
 
   /**
@@ -191,10 +216,10 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   log(...args) {
-    return _actions.proxyRun(super.log, this, ...args)
+    return _actions.proxyRun(this, super.log, ...args)
   }
 
   /**
@@ -204,10 +229,10 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   warn(...args) {
-    return _actions.proxyRun(super.warn, this, ...args)
+    return _actions.proxyRun(this, super.warn, ...args)
   }
 
   /**
@@ -217,10 +242,10 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   error(...args) {
-    return _actions.proxyRun(super.error, this, ...args)
+    return _actions.proxyRun(this, super.error, ...args)
   }
 
   /**
@@ -230,10 +255,10 @@ class VueLogger extends Logger {
    * @override
    * @param {Vue} vm - vue实例
    * @param {...*} args - 其他参数
-   * @return {VueLogger}
+   * @returns {VueLogger}
    */
   trace(...args) {
-    return _actions.proxyRun(super.trace, this, ...args)
+    return _actions.proxyRun(this, super.trace, ...args)
   }
 }
 
@@ -249,7 +274,7 @@ export default VueLogger</code></pre>
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Tue Oct 31 2017 17:07:49 GMT+0800 (CST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Thu Dec 14 2017 17:37:35 GMT+0800 (CST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

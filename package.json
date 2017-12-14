@@ -1,17 +1,19 @@
 {
   "name": "@~lisfan/vue-logger",
-  "version": "2.0.0-rc.2",
+  "version": "2.1.0",
   "description": "vue日志打印插件：输出内容的同时，输出调用打印方法所在的组件名称(具体到子组件)和路由名称",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
-    "pub-pre": "git pull && npm update && npm version prerelease && git add . && git commit -m 'updata: update version' && git push",
-    "pub-n": "npm run pub-pre && npm publish --tag nightly",
-    "pub-a": "npm run pub-pre && npm publish --tag alpha",
-    "pub-b": "npm run pub-pre && npm publish --tag beta",
-    "pub-rc": "npm run pub-pre && npm publish --tag rc",
-    "pub-s": "npm run pub-pre && npm publish --tag stable",
-    "pub": "npm run pub-pre && npm publish",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "pub-pre": "git pull && npm version prerelease",
+    "pub-n": "npm run pub-pre && npm publish --tag nightly && npm run pub-post",
+    "pub-a": "npm run pub-pre && npm publish --tag alpha && npm run pub-post",
+    "pub-b": "npm run pub-pre && npm publish --tag beta && npm run pub-post",
+    "pub-rc": "npm run pub-pre && npm publish --tag rc && npm run pub-post",
+    "pub-s": "npm run pub-pre && npm publish --tag stable && npm run pub-post",
+    "pub-x": "npm run pub-pre && npm publish --tag next && npm run pub-post",
+    "pub-l": "npm run pub-pre && npm publish && npm run pub-post",
+    "pub": "git pull && npm publish && npm run pub-post",
+    "pub-post": "git commit -am \"chore: publish@$npm_package_version\" && git push",
     "docs": "rm -rf docs && jsdoc -c conf/jsdoc.config.json"
   },
   "repository": {
@@ -22,7 +24,10 @@
     "vue",
     "log",
     "logger",
-    "vue-logger"
+    "vue-logger",
+    "debug",
+    "console",
+    "output"
   ],
   "author": "lisfan <goolisfan@gmail.com> (https://www.npmjs.com/~lisfan)",
   "license": "MIT",
@@ -31,7 +36,7 @@
   },
   "homepage": "https://github.com/lisfan/vue-logger#readme",
   "dependencies": {
-    "@~lisfan/logger": "~1.3.0-rc.1"
+    "@~lisfan/logger": "~1.3.0"
   },
   "devDependencies": {
     "docdash": "~0.4.0",
