@@ -1,6 +1,6 @@
 {
   "name": "@~lisfan/vue-logger",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "vue日志打印插件：输出内容的同时，输出调用打印方法所在的组件名称(具体到子组件)和路由名称",
   "main": "index.js",
   "scripts": {
