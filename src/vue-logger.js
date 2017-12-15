@@ -19,6 +19,8 @@ const _actions = {
   /**
    * 代理运行打印方法
    *
+   * @since  2.0.0
+   *
    * @param {function} superMethod - 要调用Logger的方法
    * @param {VueLogger} self - VueLogger 实例
    * @param {...*} args - 其他参数
@@ -54,6 +56,7 @@ const _actions = {
     // 1. 一种是游离独立的（通过new Vue创建的独立片断），游离在外的无法
     // 2. 另一种是作为某个vue实例的子组件实例存在：self.$vm.$route && self.$vm.$route.name
     const routeName = (self.$vm.$route && self.$vm.$route.name) || 'unknow'
+
     superMethod.call(self, ...args, '@' + filename.toString(), '#' + routeName.toString())
 
     return self
