@@ -66,11 +66,12 @@ const _actions = {
 /**
  * @extends external:Logger
  *
- * @classdesc
- *
- * Vue日志打印类，继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的组件文件名称(具体到子组件)和路由名称
+ * @description
+ * 继承自[Logger类]{@link https://lisfan.github.io/logger/}：针对于vue实例，支持打印内容的同时再打印出调用打印方法的组件文件名称(具体到子组件)和路由名称
  * 该文档只展示了覆盖的四个实例方法（`log`、`warn`、`error`、`trace`），且仅这四个方法支持打印输出，
  * 其他方法功能与Logger实例方法一致，API请参考[Logger文档]{@link https://lisfan.github.io/logger/}
+ *
+ * @classdesc Vue日志打印类
  *
  * @class
  */
@@ -86,9 +87,10 @@ class VueLogger extends Logger {
    *
    * @static
    * @getter
+   * @readonly
    * @memberOf VueLogger
    *
-   * @property {object} rules - 打印器命名空间规则配置集合
+   * @type {object} - 打印器命名空间规则配置集合
    */
   static get rules() {
     return Logger.rules
@@ -101,9 +103,7 @@ class VueLogger extends Logger {
    * [注]：内部始终调用Logger.configRules
    *
    * @since 2.0.0
-   *
-   * @static
-   *
+   **
    * @param {object} rules - 打印器命名空间规则配置集合
    *
    * @returns {VueLogger}
@@ -125,12 +125,14 @@ class VueLogger extends Logger {
    * @getter
    * @memberOf VueLogger
    *
+   * @type {object}
    * @property {string} name='vue-logger' - 日志器命名空间
    * @property {boolean} debug=true - 调试模式是否开启
    */
   static options = {
     name: 'vue-logger',
     debug: true,
+    // vm: viewModel,
   }
 
   /**
@@ -179,8 +181,9 @@ class VueLogger extends Logger {
    * @since 2.1.0
    *
    * @getter
+   * @readonly
    *
-   * @returns {Vue}
+   * @type {Vue}
    */
   get $vm() {
     return this.$options.vm
