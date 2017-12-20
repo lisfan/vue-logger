@@ -1,8 +1,5 @@
 /**
  * @file vue日志打印器
- * @author lisfan <goolisfan@gmail.com>
- * @version 2.1.0
- * @licence MIT
  */
 
 /**
