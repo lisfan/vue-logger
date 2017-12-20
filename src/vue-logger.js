@@ -144,9 +144,9 @@ class VueLogger extends Logger {
    *
    * @static
    *
-   * @param {object} options - 配置参数
-   * @param {string} [options.name='vue-logger'] - 日志器命名空间
-   * @param {boolean} [options.debug=true] - 调试模式是否开启
+   * @see VueLogger.options
+   *
+   * @param {object} options - 其他配置选项见{@link VueLogger.options}
    *
    * @returns {VueLogger}
    */
@@ -163,9 +163,9 @@ class VueLogger extends Logger {
   /**
    * 构造函数
    *
-   * @param {string} options - 配置选项
-   * @param {string} [options.name='vue-logger'] - 日志器命名空间
-   * @param {boolean} [options.debug=true] - 调试模式是否开启
+   * @see VueLogger.options
+   *
+   * @param {object} options - 其他配置选项见{@link VueLogger.options}
    * @param {Vue} [options.vm] - vue实例
    */
   constructor(options) {
