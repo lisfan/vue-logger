@@ -22,7 +22,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="VueLogger.html">VueLogger</a><ul class='methods'><li data-type='method'><a href="VueLogger.html#.configRules">configRules</a></li><li data-type='method'><a href="VueLogger.html#.config">config</a></li><li data-type='method'><a href="VueLogger.html#log">log</a></li><li data-type='method'><a href="VueLogger.html#warn">warn</a></li><li data-type='method'><a href="VueLogger.html#error">error</a></li><li data-type='method'><a href="VueLogger.html#trace">trace</a></li></ul></li></ul><h3>Externals</h3><ul><li><a href="external-Logger.html">Logger</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="VueLogger.html">VueLogger</a><ul class='methods'><li data-type='method'><a href="VueLogger.html#log">log</a></li><li data-type='method'><a href="VueLogger.html#warn">warn</a></li><li data-type='method'><a href="VueLogger.html#error">error</a></li><li data-type='method'><a href="VueLogger.html#trace">trace</a></li></ul></li></ul><h3>Externals</h3><ul><li><a href="external-Logger.html">Logger</a></li></ul>
 </nav>
 
 <div id="main">
@@ -275,87 +275,6 @@
 
         
             
-<h4 class="name" id=".rules"><span class="type-signature">(static, readonly) </span>rules<span class="type-signature"> :object</span></h4>
-
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line92">line 92</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>打印器命名空间规则配置项</p>
-<ul>
-<li>可以配置整个命名空间是否输出日志</li>
-<li>也可以配置命名空间下某个实例方法是否输出日志</li>
-</ul>
-<p>[注]：内部始终读取Logger.rules</p>
-</div>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">object</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-
-        
-            
 <h4 class="name" id=".options"><span class="type-signature">(static) </span>options<span class="type-signature"> :object</span></h4>
 
 
@@ -533,7 +452,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line185">line 185</a>
+        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line183">line 183</a>
     </li></ul></dd>
     
 
@@ -607,324 +526,6 @@
 
     
 
-    <h4 class="name" id=".configRules"><span class="type-signature">(static) </span>configRules<span class="signature">(rules)</span><span class="type-signature"> &rarr; {<a href="VueLogger.html">VueLogger</a>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line108">line 108</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>2.0.0
-*</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>更改命名空间规则配置项<br>[注]从<code>localStorage</code>的<code>LOGGER_RULES</code>键中读取规则配置优先级最高，始终会覆盖其他规则</p>
-<p>[注]：内部始终调用Logger.configRules</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>rules</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>打印器命名空间规则配置集合</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="VueLogger.html">VueLogger</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".config"><span class="type-signature">(static) </span>config<span class="signature">(options)</span><span class="type-signature"> &rarr; {<a href="VueLogger.html">VueLogger</a>}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line150">line 150</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-    <dt class="tag-since">Since:</dt>
-    <dd class="tag-since"><ul class="dummy"><li>2.0.0</li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-see">See:</dt>
-    <dd class="tag-see">
-        <ul>
-            <li><a href="VueLogger.html#.options">VueLogger.options</a></li>
-        </ul>
-    </dd>
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description">
-    <p>更新默认配置选项</p>
-<p>[注]：内部始终调用Logger.config</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>options</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>其他配置选项见<a href="VueLogger.html#.options">VueLogger.options</a></p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type"><a href="VueLogger.html">VueLogger</a></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-        
-            
-
-    
-
     <h4 class="name" id="log"><span class="type-signature"></span>log<span class="signature">(&hellip;args)</span><span class="type-signature"> &rarr; {<a href="VueLogger.html">VueLogger</a>}</span></h4>
 
     
@@ -937,7 +538,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line200">line 200</a>
+        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line198">line 198</a>
     </li></ul></dd>
     
 
@@ -1103,7 +704,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line215">line 215</a>
+        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line213">line 213</a>
     </li></ul></dd>
     
 
@@ -1269,7 +870,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line230">line 230</a>
+        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line228">line 228</a>
     </li></ul></dd>
     
 
@@ -1435,7 +1036,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line245">line 245</a>
+        <a href="vue-logger.js.html">vue-logger.js</a>, <a href="vue-logger.js.html#line243">line 243</a>
     </li></ul></dd>
     
 
@@ -1602,7 +1203,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Dec 20 2017 17:08:52 GMT+0800 (CST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Dec 25 2017 16:26:52 GMT+0800 (CST) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
