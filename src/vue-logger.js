@@ -73,43 +73,43 @@ const _actions = {
  * @class
  */
 class VueLogger extends Logger {
-  /**
-   * 打印器命名空间规则配置项
-   * - 可以配置整个命名空间是否输出日志
-   * - 也可以配置命名空间下某个实例方法是否输出日志
-   *
-   * [注]：内部始终读取Logger.rules
-   *
-   * @since 2.0.0
-   *
-   * @static
-   * @getter
-   * @readonly
-   * @memberOf VueLogger
-   *
-   * @type {object} - 打印器命名空间规则配置集合
-   */
-  static get rules() {
-    return Logger.rules
-  }
+  // /**
+  //  * 打印器命名空间规则配置项
+  //  * - 可以配置整个命名空间是否输出日志
+  //  * - 也可以配置命名空间下某个实例方法是否输出日志
+  //  *
+  //  * [注]：内部始终读取Logger.rules
+  //  *
+  //  * @since 2.0.0
+  //  *
+  //  * @static
+  //  * @getter
+  //  * @readonly
+  //  * @memberOf VueLogger
+  //  *
+  //  * @type {object} - 打印器命名空间规则配置集合
+  //  */
+  // static get rules() {
+  //   return Logger.rules
+  // }
 
-  /**
-   * 更改命名空间规则配置项
-   * [注]从`localStorage`的`LOGGER_RULES`键中读取规则配置优先级最高，始终会覆盖其他规则
-   *
-   * [注]：内部始终调用Logger.configRules
-   *
-   * @since 2.0.0
-   **
-   * @param {object} rules - 打印器命名空间规则配置集合
-   *
-   * @returns {VueLogger}
-   */
-  static configRules(rules) {
-    Logger.configRules(rules)
-
-    return this
-  }
+  // /**
+  //  * 更改命名空间规则配置项
+  //  * [注]从`localStorage`的`LOGGER_RULES`键中读取规则配置优先级最高，始终会覆盖其他规则
+  //  *
+  //  * [注]：内部始终调用Logger.configRules
+  //  *
+  //  * @since 2.0.0
+  //  **
+  //  * @param {object} rules - 打印器命名空间规则配置集合
+  //  *
+  //  * @returns {VueLogger}
+  //  */
+  // static configRules(rules) {
+  //   Logger.configRules(rules)
+  //
+  //   return this
+  // }
 
   /**
    * 默认配置选项
@@ -127,35 +127,36 @@ class VueLogger extends Logger {
    * @property {boolean} debug=true - 调试模式是否开启
    */
   static options = {
+    ...Logger.options,
     name: 'vue-logger',
     debug: true,
     // vm: viewModel,
   }
 
-  /**
-   * 更新默认配置选项
-   *
-   * [注]：内部始终调用Logger.config
-   *
-   * @since 2.0.0
-   *
-   * @static
-   *
-   * @see VueLogger.options
-   *
-   * @param {object} options - 其他配置选项见{@link VueLogger.options}
-   *
-   * @returns {VueLogger}
-   */
-  static config(options) {
-    // 以内置配置为优先
-    VueLogger.options = {
-      ...VueLogger.options,
-      ...options
-    }
-
-    return this
-  }
+  // /**
+  //  * 更新默认配置选项
+  //  *
+  //  * [注]：内部始终调用Logger.config
+  //  *
+  //  * @since 2.0.0
+  //  *
+  //  * @static
+  //  *
+  //  * @see VueLogger.options
+  //  *
+  //  * @param {object} options - 其他配置选项见{@link VueLogger.options}
+  //  *
+  //  * @returns {VueLogger}
+  //  */
+  // static config(options) {
+  //   // 以内置配置为优先
+  //   VueLogger.options = {
+  //     ...VueLogger.options,
+  //     ...options
+  //   }
+  //
+  //   return this
+  // }
 
   /**
    * 构造函数
@@ -166,10 +167,7 @@ class VueLogger extends Logger {
    * @param {Vue} [options.vm] - vue实例
    */
   constructor(options) {
-    super({
-      ...VueLogger.options,
-      ...options
-    })
+    super(options)
   }
 
   /**
