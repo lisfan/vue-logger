@@ -123,8 +123,8 @@ class VueLogger extends Logger {
    * @memberOf VueLogger
    *
    * @type {object}
-   * @property {string} name='vue-logger' - 日志器命名空间
-   * @property {boolean} debug=true - 调试模式是否开启
+   * @property {string} name='vue-logger' - 日志打印器名称标记
+   * @property {boolean} debug=true - 日志打印器调试模式开启状态
    */
   static options = {
     ...Logger.options,
